@@ -12,25 +12,27 @@ import AddToCartSuccessToast from "./AddToCartSuccessToast";
 
 type Props ={
     productDetailDto: ProductDetailDto|undefined
-    setShowToast: (showToast:boolean) => void;
-    toggoleShowToast: ()=> void
+    // setShowToast: (showToast:boolean) => void;
+    // toggoleShowToast: ()=> void
 }
 
 export default function DetailProductCard(props:Props) {
+    const [showToast, setShowToast] = useState<boolean>(false);
+    const toggoleShowToast = () => setShowToast(!showToast)
+
     const [count,setCount] = useState<number>(1);
     const [hover, setHover] = useState<boolean>(false)
     const navigate = useNavigate();
     const user = useContext(userContext);
     const [cartItemDtoStatus, setCartItemDtoStatus]= useState<boolean>(false);
-
+    const [countForToast,setCountForToast] = useState<number>(0);
     const addCartItemByPidAndQuantity = async ()=>{
         try{
             if(user && props.productDetailDto){
                 const data = await CartItemApi.addCartItem(props.productDetailDto.pid,count)
                 setCartItemDtoStatus(data)
-                window.alert(`${props.productDetailDto.name} 數量：${count} 已加入購物車`)
-                props.toggoleShowToast();
-
+                setCountForToast(count)
+                setShowToast(true)
 
             }else{
                 navigate("/login")
@@ -89,6 +91,8 @@ export default function DetailProductCard(props:Props) {
                     {renderButtonContainer()}
                 </Card.Body>
             </Card>
+            <AddToCartSuccessToast show={showToast} toggleShow={toggoleShowToast} name={props.productDetailDto?.name}
+            count={countForToast}/>
         </Container>
     )
 

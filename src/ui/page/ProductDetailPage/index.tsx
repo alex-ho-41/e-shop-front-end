@@ -10,6 +10,7 @@ import DetailProductLoadingSpinner from "../../component/DetailProductLoadingSpi
 import CartItemApi from "../../../api/CartItemApi";
 import {userContext} from "../../../App";
 import {CartItemDto} from "../../../data/dto/CartItemDto";
+import AddToCartSuccessToast from "../../component/AddToCartSuccessToast";
 
 type Params = {
     productId: string | undefined
@@ -19,8 +20,6 @@ export default function ProductDetailPage() {
     const [productDetailDto, setProductDetailProductDto] = useState<ProductDetailDto | undefined>(undefined)
     const params = useParams<Params>();
     const navigate = useNavigate();
-    const [showToast, setShowToast] = useState<boolean>(false);
-    const toggoleShowToast = () => setShowToast(!showToast)
 
 
     let getProductByPid = async () => {
@@ -45,8 +44,7 @@ export default function ProductDetailPage() {
     return (<div>
         <TopNavBar/>
         <Container>
-            {productDetailDto ? <DetailProductCard toggoleShowToast={toggoleShowToast} setShowToast={setShowToast}
-                                                   productDetailDto={productDetailDto}/> :
+            {productDetailDto ? <DetailProductCard  productDetailDto={productDetailDto}/> :
                 <DetailProductLoadingSpinner/>}
             {/*<DetailProductLoadingSpinner/>*/}
         </Container>
