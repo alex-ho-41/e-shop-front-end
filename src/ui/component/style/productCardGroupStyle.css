@@ -1,0 +1,16 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap');
+#product-card-group-container{
+    font-family: 'Montserrat', sans-serif;
+}
+
+
+.card-container {
+    width: 18.5rem;
+    height: 16.5rem;
+    margin: 0.5rem;
+}
+
+.card-container:hover{
+    border: gray 2px solid;
+}
+

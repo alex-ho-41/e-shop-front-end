@@ -1,0 +1,16 @@
+[
+  {
+    "pid": 1,
+    "name": "英國短毛貓",
+    "price": 5000.00,
+    "image_url": "https://pet28.com/media/uploads/listing-uploads/cover/2023/03/2020-2.jpg",
+    "has_stock": true
+  },
+  {
+    "pid": 2,
+    "name": "日本柴犬",
+    "price": 6500.00,
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/58/Shiba_inu_taiki.jpg/1280px-Shiba_inu_taiki.jpg",
+    "has_stock": true
+  }
+]

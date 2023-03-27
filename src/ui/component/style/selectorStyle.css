@@ -1,0 +1,12 @@
+#counting-bar-container{
+    display: flex;
+    align-items: center;
+    /*style={{display:"flex",alignItems:"center",justifyContent:"space-between",background:"yellow",width:"125px"}}*/
+}
+
+#count{
+    display: flex;
+    justify-content: center;
+    width: 3rem;
+}
+

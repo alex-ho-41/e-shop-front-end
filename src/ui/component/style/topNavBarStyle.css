@@ -1,0 +1,41 @@
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@700&display=swap');
+
+#nav-bar-container{
+    font-family: 'Ubuntu', sans-serif;
+
+}
+
+
+#logo {
+    height: 50px;
+    width: 50px;
+    background-image: url("../logo.png");
+    background-size: contain;
+    margin-right: 0.5rem;
+
+}
+
+#logo:hover {
+    transition: ease 2s;
+    rotate: 700deg;
+}
+
+#cart-shopping-icon {
+    color: gray;
+    transition: none;
+    margin-right: .75rem;
+}
+
+
+#cart-shopping-icon:hover {
+    color: white;
+}
+
+#search-icon{
+    color: #919191;
+    transition: none;
+}
+
+#search-icon:hover{
+    color: white;
+}

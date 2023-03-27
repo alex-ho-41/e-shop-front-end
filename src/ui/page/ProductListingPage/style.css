@@ -1,0 +1,8 @@
+.main-table-container{
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 1rem;
+    top: 56px;
+    justify-content: center;
+    align-items: center;
+}
