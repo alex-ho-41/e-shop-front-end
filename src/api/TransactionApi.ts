@@ -1,11 +1,13 @@
 import FirebaseAuthService from "../authService/FirebaseAuthService";
 import axios from "axios";
+import {TransactionDto} from "../data/dto/TransactionDto";
+import {TransactionStatusDto} from "../data/dto/TransactionStatusDto";
 
 export const baseUrl = "http://localhost:8080"
 
 namespace TransactionApi{
 
-    export const createTransaction = async () =>{
+    export const createTransaction = async ():Promise<TransactionDto> =>{
         try{
             const accessToken = await FirebaseAuthService.getAccessToken();
             if(accessToken) {
@@ -23,7 +25,7 @@ namespace TransactionApi{
         }
     }
 
-    export const getTransactionByTid = async (tid: string) =>{
+    export const getTransactionByTid = async (tid: string):Promise<TransactionDto> =>{
         try {
             const accessToken = await FirebaseAuthService.getAccessToken();
             if(accessToken) {
@@ -33,6 +35,38 @@ namespace TransactionApi{
                 return response.data
             }else {
 
+                throw new Error;
+            }
+        }catch (e) {
+            throw e;
+        }
+    }
+
+    export const payTransactionByTid = async (tid: string):Promise<TransactionStatusDto>  =>{
+        try {
+            const accessToken = await FirebaseAuthService.getAccessToken();
+            if(accessToken) {
+                const config = {headers: {Authorization: `Bearer ${accessToken}`}}
+                const response = await axios.patch(`${baseUrl}/transaction/${tid}/pay`,null, config)
+                console.log("payTransactionByTid - Api")
+                return response.data
+            }else {
+                throw new Error;
+            }
+        }catch (e) {
+            throw e;
+        }
+    }
+
+    export const finishTransactionByTid = async (tid: string):Promise<TransactionDto> =>{
+        try {
+            const accessToken = await FirebaseAuthService.getAccessToken();
+            if(accessToken) {
+                const config = {headers: {Authorization: `Bearer ${accessToken}`}}
+                const response = await axios.patch(`${baseUrl}/transaction/${tid}/finish`,null, config)
+                console.log("finishTransactionByTid - Api")
+                return response.data
+            }else {
                 throw new Error;
             }
         }catch (e) {

@@ -30,7 +30,7 @@ export default function ShoppingCartTable(props: Props) {
     }
 
     const renderTotalBar = () =>{
-        if(props.cartItemDtos && props.cartItemDtos.length!==0) {
+        if(props.cartItemDtos && props.cartItemDtos.length>0) {
             return (
                 <tr>
                     <td></td>

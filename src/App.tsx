@@ -13,6 +13,7 @@ import LoadingSpinner from "./ui/component/LoadingSpinner";
 import {HomePage} from "./ui/page/HomePage";
 import ShoppingCartPage from "./ui/page/ShoppingCartPage";
 import CheckOutPage from "./ui/page/CheckOutPage";
+import ThankYouPage from "./ui/page/ThankYouPage";
 
 export const userContext = createContext<UserData|null|undefined>(undefined)
 
@@ -37,7 +38,7 @@ function App() {
                        <Route path="/login" element={<LoginPage/>}/>
                        <Route path="/search" element={<SearchPage/>}/>
                        <Route path="/checkout/:transactionId" element={<CheckOutPage/>}/>
-                       {/*<Route path="/thankyou" element={<ThankYou/>}/>*/}
+                       <Route path="/thankyou" element={<ThankYouPage/>}/>
                        <Route path="/error" element={<ErrorPage/>}/>
                        <Route path="*" element={<Navigate to={"/"}/>}/>
                    </Routes>
