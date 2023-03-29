@@ -1,5 +1,5 @@
 import {Button, Card, Col, Container, Form, Row} from "react-bootstrap";
-import React, {useContext} from "react";
+import React, {useContext, useState} from "react";
 import {TransactionDto} from "../../data/dto/TransactionDto";
 import {userContext} from "../../App";
 import TransactionApi from "../../api/TransactionApi";
@@ -11,19 +11,38 @@ type Props = {
 export default function PaymentDetailCard(props: Props) {
     const user = useContext(userContext);
     const navigate = useNavigate();
+    const [isLoading, setIsLoading] = useState<boolean>(false)
 
 
     const handleOnclick = async ()=>{
         if(props.transactionDto){
-          let response = await TransactionApi.payTransactionByTid(props.transactionDto.tid.toString())
-            console.log(response)
-            if(response){
-               response = await TransactionApi.finishTransactionByTid(props.transactionDto.tid.toString())
-                console.log(response)
+          let transactionStatusDto = await TransactionApi.payTransactionByTid(props.transactionDto.tid.toString())
+            setIsLoading(true)
+            console.log(transactionStatusDto)
+            if(transactionStatusDto){
+               let dto = await TransactionApi.finishTransactionByTid(props.transactionDto.tid.toString())
+                console.log(dto)
                 navigate("/thankyou")
             }
         }
     }
+
+    const renderPaymentButton = ()=>{
+        if(!isLoading){
+            return(<Button variant="outline-dark"
+                           type="submit"
+                           onClick={handleOnclick}>
+                確定付費
+            </Button>)
+        }else {
+            return(<Button disabled variant="outline-dark"
+                            type="submit">
+                        付費中。。
+                    </Button>)
+
+        }
+    }
+
     return (
 
         <div style={{width: '100%', margin: "1rem"}}>
@@ -60,7 +79,7 @@ export default function PaymentDetailCard(props: Props) {
 
             <Card>
                 <Card.Body>
-                    <Card.Title style={{marginBottom: "2rem"}}>支付方法</Card.Title>
+                    <Card.Title style={{marginBottom: "1rem"}}>支付方法</Card.Title>
                     <Form>
                         <Form.Group className="mb-3" controlId="formBasicEmail">
                             <Form.Select style={{marginBottom: "1rem"}}>
@@ -91,12 +110,7 @@ export default function PaymentDetailCard(props: Props) {
                                 </Form.Group>
                             </Row>
 
-                            <Button variant="primary"
-                                    type="submit"
-                                    onClick={handleOnclick}
-                            >
-                                確定付費
-                            </Button>
+                            {renderPaymentButton()}
                         </Form.Group>
                     </Form>
                 </Card.Body>

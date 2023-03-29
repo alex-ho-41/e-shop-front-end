@@ -1,11 +1,12 @@
 import React, {useContext, useEffect, useState} from "react";
 import {CartItemDto} from "../../data/dto/CartItemDto";
-import {Button} from "react-bootstrap";
+import {Button, Spinner} from "react-bootstrap";
 import LoadingSpinner from "./LoadingSpinner";
 import {useNavigate} from "react-router-dom";
 import {cartItemDtoContext} from "../page/ShoppingCartPage";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {regular, solid} from "@fortawesome/fontawesome-svg-core/import.macro";
+import {CategoryMapping} from "../../data/dto/ProductDetailDto";
 
 type Props = {
     cartItem: CartItemDto | undefined
@@ -15,6 +16,7 @@ export default function CartItemTableRow(props: Props) {
     const navigate = useNavigate();
     const [hover, setHover] = useState<boolean>(false);
     const shoppingCartPage = useContext(cartItemDtoContext)
+    const [quantity, setQuantity]= useState<number|undefined>(undefined)
 
 
     const handleMinus = () => {
@@ -23,7 +25,8 @@ export default function CartItemTableRow(props: Props) {
             const quantity = props.cartItem.cart_quantity - 1
             const pid = props.cartItem.pid
             if (shoppingCartPage) {
-                shoppingCartPage.patchCartItemDto(pid,quantity)
+                shoppingCartPage.patchCartItemDto(pid, quantity)
+                setQuantity(quantity);
             }
         }
 
@@ -36,14 +39,29 @@ export default function CartItemTableRow(props: Props) {
             const pid = props.cartItem.pid
             if (shoppingCartPage) {
                 shoppingCartPage.patchCartItemDto(pid, quantity)
+                setQuantity(quantity);
             }
         }
     }
 
-    const handleDelete = ()=>{
-        if(props.cartItem && shoppingCartPage){
+    const handleDelete = () => {
+        if (props.cartItem && shoppingCartPage) {
             shoppingCartPage.deleteCartItem(props.cartItem.pid)
         }
+    }
+
+    let categoryMapping:CategoryMapping = {
+        "fire":"火",
+        "water":"水",
+        "electric":"電",
+        "grass":"草",
+        "fly":"飛行",
+        "fairy":"妖精",
+        "ground":"地面",
+        "ice":"冰",
+        "normal":"普通",
+        "psychic":"超能力",
+        "dragon":"龍"
     }
 
 
@@ -58,7 +76,6 @@ export default function CartItemTableRow(props: Props) {
             </td>
         }
 
-
     }
 
     const renderTable = () => {
@@ -72,9 +89,10 @@ export default function CartItemTableRow(props: Props) {
                 <td>{props.cartItem.stock}</td>
                 <td><Button variant={"outline-dark"}
                             onClick={handleDelete}
-                            onMouseOver={()=> setHover(true)}
-                            onMouseLeave={()=>setHover(false)}>
-                    <FontAwesomeIcon icon={regular("trash-can")} size="xl" style={hover? {color: "white"}:{color:"black"}} /></Button></td>
+                            onMouseOver={() => setHover(true)}
+                            onMouseLeave={() => setHover(false)}>
+                    <FontAwesomeIcon icon={regular("trash-can")} size="xl"
+                                     style={hover ? {color: "white"} : {color: "black"}}/></Button></td>
             </tr>
         } else {
             return <LoadingSpinner/>

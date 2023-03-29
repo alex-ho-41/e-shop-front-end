@@ -19,13 +19,30 @@ export default function ShoppingCartTable(props: Props) {
     const shoppingCartPage = useContext(cartItemDtoContext);
     const params = useParams<Params>()
     const user = useContext(userContext);
+    const [isLoading, setIsLoading] = useState<boolean>(false);
 
-    const renderTotal = () => {
+    const renderTotal = () => { // calculate the total price of all products
         if (props.cartItemDtos) {
             let sum = props.cartItemDtos.reduce((accumulator, object) => {
                 return accumulator + object.cart_quantity * object.price;
             }, 0)
             return sum.toLocaleString('en-US')
+        }
+    }
+
+    const renderTransactionButton = ()=>{
+        if(!isLoading){
+            return(<td><Button variant={"outline-dark"} onClick={()=>{
+                if(shoppingCartPage){
+                    setIsLoading(true)
+                    shoppingCartPage.createTransaction();
+                }else {
+                    navigate(`/`)
+                }
+            }
+            }>前往結帳</Button></td>)
+        }else {
+            return (<td><Button disabled variant={"outline-dark"}>前往中。。 </Button></td>)
         }
     }
 
@@ -38,14 +55,7 @@ export default function ShoppingCartTable(props: Props) {
                     <td></td>
                     <td>合計：</td>
                     <td>HKD ${renderTotal()}</td>
-                    <td><Button variant={"outline-dark"} onClick={()=>{
-                        if(shoppingCartPage){
-                            shoppingCartPage.createTransaction();
-                        }else {
-                            navigate(`/`)
-                        }
-                    }
-                    }>前往結帳</Button></td>
+                    {renderTransactionButton()}
                     <td></td>
                 </tr>
             )

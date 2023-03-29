@@ -11,6 +11,8 @@ type Props = {
     name:string|undefined
     count:number
 
+    setHover: ()=>void
+
 
 }
 
@@ -19,7 +21,7 @@ export default function AddToCartSuccessToast(props:Props) {
 
     return(
         <ToastContainer>
-            <Toast show={props.show} onClose={props.toggleShow} style={{position:"fixed",top:"90px",right:"20px",zIndex:"1"}}>
+            <Toast show={props.show} onClose={()=>{props.toggleShow();props.setHover()}} style={{position:"fixed",top:"90px",right:"20px",zIndex:"1"}}>
                 <Toast.Header>
                     <strong className="me-auto"><FontAwesomeIcon icon={regular("envelope")} beatFade size="lg" style={{color: "#000000",}} /> 消息</strong>
                     <small>{moment().format("DD/MM/YYYY HH:mm:ss")}</small>

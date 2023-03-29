@@ -9,7 +9,6 @@ import LoginPage from "./ui/page/LoginPage";
 import SearchPage from "./ui/page/SearchPage";
 import {UserData} from "./data/UserData";
 import FirebaseAuthService from "./authService/FirebaseAuthService";
-import LoadingSpinner from "./ui/component/LoadingSpinner";
 import {HomePage} from "./ui/page/HomePage";
 import ShoppingCartPage from "./ui/page/ShoppingCartPage";
 import CheckOutPage from "./ui/page/CheckOutPage";
@@ -23,6 +22,7 @@ function App() {
     // undefined = not yet check any one is login-ed
     const [user, setUser] = useState<UserData|null|undefined>(undefined)
     useEffect(()=>{
+        document.title = "Amazing Pokie"
         FirebaseAuthService.handleOnAuthStateChanged(setUser)
     },[])
 
@@ -45,7 +45,7 @@ function App() {
                </HashRouter>
            </div>
        </userContext.Provider> :
-           <LoadingSpinner/>
+           <></>
     }
 
 

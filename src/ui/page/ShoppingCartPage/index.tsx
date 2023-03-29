@@ -12,6 +12,7 @@ import TransactionApi from "../../../api/TransactionApi";
 import LoadingSpinner from "../../component/LoadingSpinner";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {solid} from "@fortawesome/fontawesome-svg-core/import.macro";
+import './style.css'
 
 
 export const cartItemDtoContext = createContext<CartItemProvider | undefined>(undefined);
@@ -40,7 +41,7 @@ export default function ShoppingCartPage() {
     }
 
     const fetchCartItemFunction: CartItemProvider = {
-        patchCartItemDto: async (pid: number, quantity: number) => {
+        patchCartItemDto: async (pid: number, quantity: number):Promise<void> => {
             try {
                 const data: CartItemDto = await CartItemApi.patchCartItem(pid, quantity)
                 if (cartItemDtos) {
@@ -51,6 +52,7 @@ export default function ShoppingCartPage() {
                         return value
                     }))
                 }
+
             } catch (e) {
                 navigate("/error")
             }
@@ -122,7 +124,10 @@ export default function ShoppingCartPage() {
                 </div>
             </Container>)
         }else{
-            return <></>
+            return <Container style={{marginTop:"1rem"}}>
+                <LoadingSpinner/>
+            </Container>
+
         }
     }
 
@@ -133,7 +138,7 @@ export default function ShoppingCartPage() {
     }, [])
 
 
-    return (<div>
+    return (<div id={"shopping-cart-page-container"}>
         <TopNavBar/>
         <cartItemDtoContext.Provider value={fetchCartItemFunction}>
             {renderShoppingCartPage()}

@@ -4,37 +4,16 @@ import './style/topNavBarStyle.css'
 import logo from './logo.png'
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {regular, solid} from "@fortawesome/fontawesome-svg-core/import.macro";
-import {Link, useNavigate, useParams} from "react-router-dom";
-import {ProductDetailDto} from "../../data/dto/ProductDetailDto";
-import {ProductApi} from "../../api/ProductApi";
-import {ProductListDto} from "../../data/dto/ProductListDto";
+import {Link, useNavigate} from "react-router-dom";
 import {userContext} from "../../App";
 import FirebaseAuthService from "../../authService/FirebaseAuthService";
 
-type Params = {
-    productId: string | undefined
-}
-
-
 export default function TopNavBar() {
     const [hover, setHover] = useState<boolean>(false)
-    const [productListDto, setProductListDto] = useState<ProductListDto[] | undefined>(undefined)
-    const params = useParams<Params>();
     const navigate = useNavigate();
     const user = useContext(userContext);
-    const inputRef = useRef();
 
-
-    let getAllProducts = async () => {
-        try {
-            let data = await ProductApi.getAllProduct()
-            setProductListDto(data)
-            console.log("topNav")
-        } catch (e) {
-            navigate("/error")
-        }
-    }
-    const toComponentB = (search: string | null) => {
+    const toComponentB = (search: string | null) => { // for passing the value to the searching page
         navigate("/search", {state: {input: search}})
     }
 
@@ -55,7 +34,7 @@ export default function TopNavBar() {
                 }
                 }
                         onMouseOver={() => setHover(true)} onMouseLeave={() => setHover(false)}>
-                    <FontAwesomeIcon icon={solid("right-from-bracket")} beat size="sm"
+                    <FontAwesomeIcon icon={solid("right-from-bracket")} size="sm"
                                      style={hover ? {color: "#000000"} : {color: "#ffffff"}}/>
                 </Button>
             </>)
@@ -75,7 +54,7 @@ export default function TopNavBar() {
                         onMouseLeave={() => {
                             setHover(false)
                         }}>
-                    <FontAwesomeIcon id="cart-shopping-icon" icon={solid("cart-shopping")} size="xl"/></Button>
+                    <FontAwesomeIcon id="cart-shopping-icon" beat icon={solid("cart-shopping")} size="xl"/></Button>
             </Link>
         } else {
             return <Link to={"/login"}>
@@ -85,7 +64,7 @@ export default function TopNavBar() {
                         onMouseLeave={() => {
                             setHover(false)
                         }}>
-                    <FontAwesomeIcon id="cart-shopping-icon" icon={solid("cart-shopping")} size="xl"/></Button>
+                    <FontAwesomeIcon id="cart-shopping-icon" beat icon={solid("cart-shopping")} size="xl"/></Button>
             </Link>
         }
     }
@@ -106,20 +85,20 @@ export default function TopNavBar() {
             <Navbar.Collapse id="responsive-navbar-nav">
                 <Nav className="me-auto">
                     <Nav.Link href="#/product/allProduct">Products</Nav.Link>
-                    <Nav.Link href="#pricing">Pricing</Nav.Link>
-                    <NavDropdown title="Dropdown" id="collasible-nav-dropdown">
-                        <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
-                        <NavDropdown.Item href="#action/3.2">
-                            Another action
-                        </NavDropdown.Item>
-                        <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
-                        <NavDropdown.Divider/>
-                        <NavDropdown.Item href="#action/3.4">
-                            Separated link
-                        </NavDropdown.Item>
-                    </NavDropdown>
+                    {/*<Nav.Link href="#pricing">Pricing</Nav.Link>*/}
+                    {/*<NavDropdown title="Dropdown" id="collasible-nav-dropdown">*/}
+                    {/*    <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>*/}
+                    {/*    <NavDropdown.Item href="#action/3.2">*/}
+                    {/*        Another action*/}
+                    {/*    </NavDropdown.Item>*/}
+                    {/*    <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>*/}
+                    {/*    <NavDropdown.Divider/>*/}
+                    {/*    <NavDropdown.Item href="#action/3.4">*/}
+                    {/*        Separated link*/}
+                    {/*    </NavDropdown.Item>*/}
+                    {/*</NavDropdown>*/}
 
-                    <Form className="d-flex" style={{display: "flex", alignItems: "center"}} onSubmit={handleOnSubmit}>
+                    <Form className="d-flex" style={{display: "flex", alignItems: "center",marginLeft:"1rem"}} onSubmit={handleOnSubmit}>
                         <Form.Control
                             type="text"
                             placeholder="Search"

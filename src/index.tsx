@@ -5,7 +5,7 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import FirebaseAuthService from "./authService/FirebaseAuthService";
-
+document.title="Amazing Pokie"
 FirebaseAuthService.serviceInit(); //kick off the relationship between fire base
 
 
