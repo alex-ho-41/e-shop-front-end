@@ -17,7 +17,6 @@ type Props = {
 export default function ShoppingCartTable(props: Props) {
     const navigate = useNavigate()
     const shoppingCartPage = useContext(cartItemDtoContext);
-    const params = useParams<Params>()
     const user = useContext(userContext);
     const [isLoading, setIsLoading] = useState<boolean>(false);
 

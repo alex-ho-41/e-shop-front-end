@@ -8,8 +8,10 @@ import {
     signInWithPopup, signOut
 } from "firebase/auth";
 import {UserData} from "../data/UserData";
+import { FacebookAuthProvider } from "firebase/auth";
 
 namespace FirebaseAuthService {
+
     export const serviceInit = () => {
         // Your web app's Firebase configuration
         // For Firebase JS SDK v7.20.0 and later, measurementId is optional
@@ -34,6 +36,19 @@ namespace FirebaseAuthService {
     export const handleSignInWithGoogle = async (): Promise<boolean> => {
         try {
             const provider = new GoogleAuthProvider();
+            const auth = getAuth();
+            await signInWithPopup(auth, provider);
+            // Signed in
+            return true;
+        } catch (error) {
+            console.log(error);
+            return false;
+        }
+    }
+//https://fsse2212-project-alex.firebaseapp.com/__/auth/handler
+    export const handleSignInWithFaceBook = async (): Promise<boolean> => {
+        try {
+            const provider = new FacebookAuthProvider();
             const auth = getAuth();
             await signInWithPopup(auth, provider);
             // Signed in

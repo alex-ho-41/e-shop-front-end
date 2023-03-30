@@ -4,6 +4,7 @@ import {TransactionDto} from "../../data/dto/TransactionDto";
 import {userContext} from "../../App";
 import TransactionApi from "../../api/TransactionApi";
 import {useNavigate} from "react-router-dom";
+import moment from "moment";
 
 type Props = {
     transactionDto: TransactionDto | undefined
@@ -15,16 +16,24 @@ export default function PaymentDetailCard(props: Props) {
 
 
     const handleOnclick = async ()=>{
-        if(props.transactionDto){
-          let transactionStatusDto = await TransactionApi.payTransactionByTid(props.transactionDto.tid.toString())
-            setIsLoading(true)
-            console.log(transactionStatusDto)
-            if(transactionStatusDto){
-               let dto = await TransactionApi.finishTransactionByTid(props.transactionDto.tid.toString())
-                console.log(dto)
-                navigate("/thankyou")
+        try {
+            if(props.transactionDto){
+                setIsLoading(true)
+                let transactionStatusDto = await TransactionApi.payTransactionByTid(props.transactionDto.tid.toString())
+                console.log(transactionStatusDto)
+                if(transactionStatusDto){
+                    let dto = await TransactionApi.finishTransactionByTid(props.transactionDto.tid.toString())
+                    console.log(dto)
+                    navigate("/thankyou")
+                }
             }
+        }catch (e) {
+            navigate("/error")
+
+        }finally {
+            setIsLoading(false)
         }
+
     }
 
     const renderPaymentButton = ()=>{
@@ -55,7 +64,7 @@ export default function PaymentDetailCard(props: Props) {
             <Card style={{marginBottom: "2rem"}}>
                 <Card.Body>
                     <Card.Title style={{marginBottom: "1rem"}}>貨物總覽</Card.Title>
-                    <Card.Text> 價錢合計：{`$ HKD ${props.transactionDto?.total.toLocaleString("en")}`}</Card.Text>
+                    <Card.Text> 價錢合計：{`HKD ＄${props.transactionDto?.total.toLocaleString("en")}`}</Card.Text>
                     <Card.Text> 結算時間：{props.transactionDto?.date_time}</Card.Text>
                     <Card.Text> 帳單狀態：{props.transactionDto?.status}</Card.Text>
                 </Card.Body>

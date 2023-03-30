@@ -25,8 +25,8 @@ export default function TransactionProductCard(props:Props) {
                         <Card.Text>{props.value.product.description}</Card.Text>
                         <Card.Text>貨物編號: {props.value.product.pid}</Card.Text>
                         <Card.Text>結算數量: {props.value.quantity}</Card.Text>
-                        <Card.Text>單件價格: ＄HKD {props.value.product.price.toLocaleString("en")}</Card.Text>
-                        <Card.Text>價格: $ HKD {props.value.subtotal.toLocaleString("en")}</Card.Text>
+                        <Card.Text>單件價格: HKD ${props.value.product.price.toLocaleString("en")}</Card.Text>
+                        <Card.Text>價格:  HKD ${props.value.subtotal.toLocaleString("en")}</Card.Text>
                         {/*<Button variant="primary">Go somewhere</Button>*/}
                     </Card.Body>
                 </div>

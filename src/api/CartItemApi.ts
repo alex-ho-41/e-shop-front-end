@@ -3,10 +3,11 @@ import axios from "axios";
 import {CartItemDto} from "../data/dto/CartItemDto";
 import {ProductDetailDto} from "../data/dto/ProductDetailDto";
 import {CartItemDtoStatus} from "../data/dto/CartItemDtoStatus";
+import getEnvConfig from "../config/Config.js";
 
 namespace CartItemApi{
 
-    const baseUrl = "http://localhost:8080"
+    const baseUrl = getEnvConfig().baseUrl;
 
      export const getAllCartItems = async () => {
         try {

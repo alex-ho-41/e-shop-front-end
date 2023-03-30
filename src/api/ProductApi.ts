@@ -1,11 +1,12 @@
 import {ProductListDto} from "../data/dto/ProductListDto";
 import axios from "axios";
 import {ProductDetailDto} from "../data/dto/ProductDetailDto";
+import getEnvConfig from "../config/Config.js";
 
 
 
 export namespace ProductApi{
-    const baseUrl = "http://localhost:8080"
+    const baseUrl = getEnvConfig().baseUrl;
 
     export async function getAllProduct():Promise<ProductListDto[]>{
         try {

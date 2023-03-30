@@ -4,7 +4,7 @@ import './style.css'
 import {Link, useNavigate} from "react-router-dom";
 import React, {useState} from "react";
 import FirebaseAuthService from "../../../authService/FirebaseAuthService";
-import {GoogleLoginButton} from "react-social-login-buttons";
+import {FacebookLoginButton, GoogleLoginButton} from "react-social-login-buttons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {solid} from "@fortawesome/fontawesome-svg-core/import.macro";
 
@@ -40,6 +40,13 @@ export default function LoginPage() {
         }
     }
 
+    const handleFaceBookLogin = async ()=>{
+        let loginResult = await FirebaseAuthService.handleSignInWithFaceBook()
+        if (loginResult) {
+            navigate(-1);
+        }
+    }
+
 
     let renderContainer = (
         <Container id={"login-container"}>
@@ -52,6 +59,7 @@ export default function LoginPage() {
 
                     <Form.Group className="mb-3" controlId="formBasicPassword">
                         <Form.Label>Password</Form.Label>
+
                         <Form.Control type="password" placeholder="Type your password" onChange={handlePasswordChange}/>
                         {isLoginFailed && <Form.Text style={{color: "red"}}>
                             Login Fail. Please try again!
@@ -69,6 +77,7 @@ export default function LoginPage() {
 
                     <hr/>
                     <GoogleLoginButton onClick={handleGoogleLogin} />
+                    <FacebookLoginButton onClick={handleFaceBookLogin}/>
                 </div>
 
             </Form>

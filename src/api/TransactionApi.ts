@@ -2,8 +2,9 @@ import FirebaseAuthService from "../authService/FirebaseAuthService";
 import axios from "axios";
 import {TransactionDto} from "../data/dto/TransactionDto";
 import {TransactionStatusDto} from "../data/dto/TransactionStatusDto";
+import getEnvConfig from "../config/Config.js";
 
-export const baseUrl = "http://localhost:8080"
+export const baseUrl = getEnvConfig().baseUrl;
 
 namespace TransactionApi{
 

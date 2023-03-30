@@ -21,11 +21,10 @@ export default function CheckOutPage() {
     const user = useContext(userContext);
     const navigate = useNavigate();
     const [transactionDto, setTransactionDto] = useState<TransactionDto | undefined>(undefined)
-    const [transactionStatusDto, setTransactionStatusDto] = useState<TransactionStatusDto | undefined>(undefined)
 
     const getTransactionByTid = async () => {
         try {
-            if (params.transactionId) {
+            if (user && params.transactionId) {
                 const data = await TransactionApi.getTransactionByTid(params.transactionId)
                 setTransactionDto(data);
             }

@@ -25,11 +25,11 @@ export default function DetailProductCard(props:Props) {
     const user = useContext(userContext);
     const [countForToast,setCountForToast] = useState<number>(0);
     const addCartItemByPidAndQuantity = async ()=>{
+        setShowToast(true)
         try{
             if(user && props.productDetailDto){
                 const data = await CartItemApi.addCartItem(props.productDetailDto.pid,count)
                 setCountForToast(count)
-                setShowToast(true)
 
             }else{
                 navigate("/login")

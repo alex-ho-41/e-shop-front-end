@@ -134,7 +134,6 @@ export default function ShoppingCartPage() {
 
     useEffect(() => {
         checkIsLogined()
-        getAllCartItems()
     }, [])
 
 
