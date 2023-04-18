@@ -1,7 +1,7 @@
 import TopNavBar from "../../component/TopNavBar";
 import {Button, Container, Form} from "react-bootstrap";
 import './style.css'
-import {Link, useNavigate} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import React, {useState} from "react";
 import FirebaseAuthService from "../../../authService/FirebaseAuthService";
 import {FacebookLoginButton, GoogleLoginButton} from "react-social-login-buttons";
@@ -77,7 +77,7 @@ export default function LoginPage() {
 
                     <hr/>
                     <GoogleLoginButton onClick={handleGoogleLogin} />
-                    <FacebookLoginButton onClick={handleFaceBookLogin}/>
+                    {/*<FacebookLoginButton onClick={handleFaceBookLogin}/>*/}
                 </div>
 
             </Form>

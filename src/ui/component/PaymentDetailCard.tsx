@@ -5,6 +5,7 @@ import {userContext} from "../../App";
 import TransactionApi from "../../api/TransactionApi";
 import {useNavigate} from "react-router-dom";
 import moment from "moment";
+import StripeApi from "../../api/StripeApi";
 
 type Props = {
     transactionDto: TransactionDto | undefined
@@ -19,13 +20,10 @@ export default function PaymentDetailCard(props: Props) {
         try {
             if(props.transactionDto){
                 setIsLoading(true)
-                let transactionStatusDto = await TransactionApi.payTransactionByTid(props.transactionDto.tid.toString())
-                console.log(transactionStatusDto)
-                if(transactionStatusDto){
-                    let dto = await TransactionApi.finishTransactionByTid(props.transactionDto.tid.toString())
-                    console.log(dto)
-                    navigate("/thankyou")
-                }
+                let redirectPath = await StripeApi.payTransaction(props.transactionDto.tid.toString())
+                window.location.replace(redirectPath);
+                console.log(redirectPath)
+
             }
         }catch (e) {
             navigate("/error")

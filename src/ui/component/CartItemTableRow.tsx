@@ -1,6 +1,6 @@
 import React, {useContext, useEffect, useState} from "react";
 import {CartItemDto} from "../../data/dto/CartItemDto";
-import {Button, Spinner} from "react-bootstrap";
+import {Button} from "react-bootstrap";
 import LoadingSpinner from "./LoadingSpinner";
 import {useNavigate} from "react-router-dom";
 import {cartItemDtoContext} from "../page/ShoppingCartPage";
@@ -41,20 +41,20 @@ export default function CartItemTableRow(props: Props) {
         }
     }
 
-    const handleDelete = () => {
-        setIsLoading(!isLoading)
-        try{
+    const handleDelete = async () => {
+        setIsLoading(true)
+        try {
             if (props.cartItem && shoppingCartPage) {
-                shoppingCartPage.deleteCartItem(props.cartItem.pid)
+                await shoppingCartPage.deleteCartItem(props.cartItem.pid)
             }
-        }catch (e) {
+        } catch (e) {
             console.log(e)
-        }finally {
-            setIsLoading(isLoading)
+        } finally {
+            setHover(false);
+            setIsLoading(false)
         }
 
     }
-
 
 
     const renderSelector = () => {
@@ -67,22 +67,22 @@ export default function CartItemTableRow(props: Props) {
                 </div>
             </td>
         }
-
     }
 
-    const renderDeleteButton = ()=> {
-        if(!isLoading){
+    const renderDeleteButton = () => {
+        if (!isLoading) {
             return (<td><Button variant={"outline-dark"}
-                                // disabled={isLoading}
+                // disabled={isLoading}
                                 onMouseDown={handleDelete}
                                 onMouseOver={() => setHover(true)}
-                                onMouseLeave={() => setHover(false)} >
+                                onMouseLeave={() => setHover(false)}>
                 <FontAwesomeIcon icon={regular("trash-can")} size="xl"
                                  style={hover ? {color: "white"} : {color: "black"}}/></Button></td>)
-        }else {
+        } else {
             return (<td><Button variant={"outline-dark"}
                                 disabled>
-                <FontAwesomeIcon icon={solid("circle-xmark")} shake size="xl" style={{color: "#ff0000",}} /></Button></td>)
+                <FontAwesomeIcon icon={solid("circle-check")} beatFade size="lg" style={{color: "#00ff1e",}} /></Button>
+            </td>)
         }
     }
 

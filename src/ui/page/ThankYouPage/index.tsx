@@ -1,13 +1,28 @@
 import TopNavBar from "../../component/TopNavBar";
 import {Button, Card} from "react-bootstrap";
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {regular, solid} from "@fortawesome/fontawesome-svg-core/import.macro";
-import {Link, useNavigate} from "react-router-dom";
+import {Link, useNavigate, useSearchParams} from "react-router-dom";
+import TransactionApi from "../../../api/TransactionApi";
 
 export default function ThankYouPage() {
     const [hover, setHover] = useState<boolean>(false)
     const navigate = useNavigate();
+    const[searchParam, setSearchParam] = useSearchParams()
+
+    let finishApi = async ()=>{
+        let tid = searchParam.get("tid")
+        if(tid){
+            let dto = await TransactionApi.finishTransactionByTid(tid)
+            console.log(dto)
+        }
+
+    }
+
+    useEffect(()=>{
+        finishApi();
+    })
 
     return(<div>
         <TopNavBar/>
@@ -23,8 +38,5 @@ export default function ThankYouPage() {
             </Button>
 
         </div>
-
-
-
     </div>)
 }

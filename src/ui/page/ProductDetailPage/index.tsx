@@ -5,12 +5,7 @@ import {useContext, useEffect, useState} from "react";
 import {ProductDetailDto} from "../../../data/dto/ProductDetailDto";
 import {useNavigate, useParams} from "react-router-dom";
 import {ProductApi} from "../../../api/ProductApi";
-import LoadingSpinner from "../../component/LoadingSpinner";
 import DetailProductLoadingSpinner from "../../component/DetailProductLoadingSpinner";
-import CartItemApi from "../../../api/CartItemApi";
-import {userContext} from "../../../App";
-import {CartItemDto} from "../../../data/dto/CartItemDto";
-import AddToCartSuccessToast from "../../component/AddToCartSuccessToast";
 
 type Params = {
     productId: string | undefined

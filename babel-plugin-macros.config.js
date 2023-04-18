@@ -3,3 +3,4 @@ module.exports = {
         'license': 'free'
     }
 }
+// for fontawesome usage
