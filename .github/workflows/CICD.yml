@@ -29,3 +29,13 @@ jobs:
         run: npm install && CI=false npm run build
       - name: Deploy app build to S3 bucket
         run: aws s3 sync ./build/ s3://fsse2212-ecommerce-alex --delete
+        
+        # Invalidate CloudFront (this action)
+      - name: Invalidate CloudFront
+        uses: chetan/invalidate-cloudfront-action@v2
+        env:
+          DISTRIBUTION: ${{ secrets.DISTRIBUTION }}
+          PATHS: "/*"
+          AWS_REGION: ${{ secrets.AWS_REGION }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
