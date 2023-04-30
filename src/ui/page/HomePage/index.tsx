@@ -1,8 +1,6 @@
 import TopNavBar from "../../component/TopNavBar";
 import HomePageCarousel from "../../component/HomePageCarousel";
-import {Container} from "react-bootstrap";
 import {useEffect, useState} from "react";
-import AddToCartSuccessToast from "../../component/AddToCartSuccessToast";
 import Disclaimer from "../../component/Disclaimer";
 
 export function HomePage() {
@@ -17,6 +15,7 @@ export function HomePage() {
         <TopNavBar/>
         {/*<Container>*/}
             <HomePageCarousel/>
+        <div>Testing</div>
         {/*</Container>*/}
         <Disclaimer show={showToast} toggleShow={toggleShowToast}/>
     </div>)
