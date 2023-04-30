@@ -16,6 +16,6 @@ export function HomePage() {
         {/*<Container>*/}
             <HomePageCarousel/>
         {/*</Container>*/}
-        {/*<Disclaimer show={showToast} toggleShow={toggleShowToast}/>*/}
+        <Disclaimer show={showToast} toggleShow={toggleShowToast}/>
     </div>)
 }
